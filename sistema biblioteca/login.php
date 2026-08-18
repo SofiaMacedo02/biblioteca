@@ -2,31 +2,38 @@
 require_once 'config.php';
 
 if (session_status() === PHP_SESSION_NONE) {
-     session_start();
+    session_start();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-     $email = trim($_POST['email']);
-     $senha = $_POST['senha'];
+$erro = ""; // Armazena a mensagem de erro para o HTML
 
-     if(!empty($email) && !empty($senha)){
-        $sql = "SELECT * FROM usuarios WHERE email = :email" ;
-        $stml = $pdo ->prepare($sql);
-        $stml ->bindParam(":email", $email);
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $email = trim($_POST['email']);
+    $senha = $_POST['senha'];
+
+    if (!empty($email) && !empty($senha)) {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        $stml = $pdo->prepare($sql);
+        $stml->bindParam(":email", $email);
 
         $stml->execute();
         
         $usuarioBanco = $stml->fetch(PDO::FETCH_ASSOC);
     
-        if($usuarioBanco && password_verify($senha, $usuarioBanco["senha"])){
+        if ($usuarioBanco && password_verify($senha, $usuarioBanco["senha"])) {
+            // Salva na sessão e envia para o index.php
             $_SESSION['usuario_id'] = $usuarioBanco['id_usuario'];
             $_SESSION['usuario_nome'] = $usuarioBanco['email'];
+            
             header("Location: index.php");
             exit;
         } else {
-            echo"Usuário ou senha incorretes ";
+            // Em vez de 'echo', grava na variável para exibir no HTML
+            $erro = "Usuário ou senha incorreitos.";
         }
-     }
+    } else {
+        $erro = "Preencha todos os campos.";
+    }
 }
 ?>
 

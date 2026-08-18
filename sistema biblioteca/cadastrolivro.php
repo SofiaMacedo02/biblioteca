@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>Cadastrar Livro</h1>
             <form method="POST" action="">
                 
-                <label for="nome_livro">Nome / Título do Livro:</label>
+                <label for="nome_livro">Título do Livro:</label>
                 <input type="text" id="nome_livro" name="nome_livro" required>
 
                 <label for="ano_publicacao">Ano de Publicação:</label>

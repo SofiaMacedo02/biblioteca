@@ -1,10 +1,10 @@
-<?php   
-if (session_status() == PHP_SESSION_NONE) {
+<?php
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
-    exit();
+    exit;
 }
-?> 
+?>
