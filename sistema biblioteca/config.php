@@ -2,7 +2,7 @@
 $host = 'localhost';  // servidor local
 $username = 'root';  // user padão 
 $password = '';     // senha padão do XAMPP
-$database = 'biblioteca_bd'; // nome do banco de dados 
+$database = 'biblioteca'; // nome do banco de dados 
 
 try{
     $pdo = new PDO("mysql:host=$host", $username, $password); // conexão com o banco de dados
